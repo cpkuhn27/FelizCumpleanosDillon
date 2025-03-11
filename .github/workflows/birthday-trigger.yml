@@ -1,0 +1,22 @@
+name: Birthday Message Trigger
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "birthday-trigger.txt"  # Adjust the path to the file you'll change
+
+jobs:
+  send_birthday_message:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for special phrase in file
+        run: |
+          if grep -q "Feliz cumpleaños Dillon" birthday-trigger.txt; then
+            echo "Your Birthday Message" > birthday-message.txt
+          fi
